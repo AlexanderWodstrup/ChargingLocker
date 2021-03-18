@@ -24,9 +24,8 @@ namespace ChargingLocker
         private IUsbCharger _charger;
         private Door _door;
         private Display _display;
+        private LogWriter _log;
         private int _oldId;
-
-        private string logFile = "logfile.txt"; // Navnet på systemets log-fil
 
         // Her mangler constructor
 
@@ -42,10 +41,8 @@ namespace ChargingLocker
                         _door.LockDoor();
                         _charger.StartCharge();
                         _oldId = id;
-                        using (var writer = File.AppendText(logFile))
-                        {
-                            writer.WriteLine(DateTime.Now + ": Skab låst med RFID: {0}", id);
-                        }
+                        _log.LogDoorLocked(id);
+                        
 
                         _display.DisplayChargeLockerOccupied();
                         _state = LadeskabState.Locked;
