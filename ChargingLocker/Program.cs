@@ -1,17 +1,21 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using ChargingLocker;
+using RFIDSimulator;
 
 namespace ChargingLocker
 {
     class Program
     {
-        static private Door _door;
-        static private IRFIDReader _rfidReader;
+        
         static void Main(string[] args)
         {
-				// Assemble your system here from all the classes
-                
+            // Assemble your system here from all the classes
+            StationControl stationControl = new StationControl();
+            Door door = new Door();
+            IRFIDReader rfidReader = new RFIDReaderSimulator();
+            
+
 
             bool finish = false;
             do
@@ -28,11 +32,11 @@ namespace ChargingLocker
                         break;
 
                     case 'O':
-                        _door.DoorOpened();
+                        door.DoorOpened();
                         break;
 
                     case 'C':
-                        _door.DoorClosed();
+                        door.DoorClosed();
                         break;
 
                     case 'R':
@@ -40,7 +44,7 @@ namespace ChargingLocker
                         string idString = System.Console.ReadLine();
 
                         int id = Convert.ToInt32(idString);
-                        _rfidReader.ReadRFID(id);
+                        rfidReader.ReadRFID(id);
                         break;
 
                     default:

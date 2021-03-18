@@ -16,6 +16,7 @@ namespace ChargingLocker
         {
             _doorClose = false;
             _doorOpen = true;
+            Console.WriteLine("DoorOpened");
         }
 
         public void DoorClosed()
