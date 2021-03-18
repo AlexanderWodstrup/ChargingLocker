@@ -6,30 +6,30 @@ using System.Threading.Tasks;
 
 namespace ChargingLocker
 {
-    class Door
+    public class Door
     {
         private bool _doorOpen = false;
         private bool _doorClose = true;
         private bool _lock = false;
 
-        void DoorOpened()
+        public void DoorOpened()
         {
             _doorClose = false;
             _doorOpen = true;
         }
 
-        void DoorClosed()
+        public void DoorClosed()
         {
             _doorOpen = false;
             _doorClose = true;
         }
 
-        void LockDoor()
+        public void LockDoor()
         {
             _lock = true;
         }
 
-        void UnlockDoor()
+        public void UnlockDoor()
         {
             _lock = false;
         }
