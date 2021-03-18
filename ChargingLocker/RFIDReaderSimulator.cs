@@ -5,17 +5,20 @@ using System.Text;
 using System.Threading.Tasks;
 using ChargingLocker;
 
-namespace ChargingLocker
+namespace RFIDSimulator
 {
     class RFIDReaderSimulator : IRFIDReader
     {
+        public event EventHandler<RFIDEventArgs> RFIDValueEvent;
+        public int IdValue { get; private set; }
         public RFIDReaderSimulator()
         {
 
         }
-        public void ReadRFID()
+        public void ReadRFID(int id)
         {
-            throw new NotImplementedException();
+            IdValue = id;
+            RFIDValueEvent?.Invoke(this,new RFIDEventArgs() {id = this.IdValue});
         }
     }
 }

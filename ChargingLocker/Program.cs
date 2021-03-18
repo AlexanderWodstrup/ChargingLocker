@@ -1,9 +1,17 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
+using ChargingLocker;
+
+namespace ChargingLocker
+{
     class Program
     {
+        static private Door _door;
+        static private IRFIDReader _rfidReader;
         static void Main(string[] args)
         {
 				// Assemble your system here from all the classes
+                
 
             bool finish = false;
             do
@@ -20,11 +28,11 @@
                         break;
 
                     case 'O':
-                        door.OnDoorOpen();
+                        _door.DoorOpened();
                         break;
 
                     case 'C':
-                        door.OnDoorClose();
+                        _door.DoorClosed();
                         break;
 
                     case 'R':
@@ -32,7 +40,7 @@
                         string idString = System.Console.ReadLine();
 
                         int id = Convert.ToInt32(idString);
-                        rfidReader.OnRfidRead(id);
+                        _rfidReader.ReadRFID(id);
                         break;
 
                     default:

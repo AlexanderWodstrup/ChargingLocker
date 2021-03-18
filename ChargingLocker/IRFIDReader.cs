@@ -6,9 +6,15 @@ using System.Threading.Tasks;
 
 namespace ChargingLocker
 {
+    public class RFIDEventArgs : EventArgs
+    {
+        public int id { set; get; }
+    }
     public interface IRFIDReader
     {
-        public void ReadRFID()
+        public event EventHandler<RFIDEventArgs> RFIDValueEvent;
+        int IdValue { get; }
+        public void ReadRFID(int id)
         {
 
         }

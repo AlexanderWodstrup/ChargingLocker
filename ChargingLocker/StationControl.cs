@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using ChargingLocker;
 using UsbSimulator;
 
-namespace Ladeskab
+namespace ChargingLocker
 {
     public class StationControl
     {
