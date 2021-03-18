@@ -14,6 +14,7 @@ namespace ChargingLocker
             StationControl stationControl = new StationControl();
             Door door = new Door();
             IRFIDReader rfidReader = new RFIDReaderSimulator();
+            LogWriter logWriter = new LogWriter();
             
 
 
@@ -44,6 +45,7 @@ namespace ChargingLocker
                         string idString = System.Console.ReadLine();
 
                         int id = Convert.ToInt32(idString);
+                        rfidReader.RFIDValueEvent += logWriter.LogDoorLocked;
                         rfidReader.ReadRFID(id);
                         break;
 

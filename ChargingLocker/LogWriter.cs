@@ -13,18 +13,19 @@ namespace ChargingLocker
     {
         private string logFile = "logfile.txt"; // Navnet på systemets log-fil
 
-        public void LogDoorLocked(id)
+        public void LogDoorLocked(object sender, RFIDEventArgs e)
         {
             
-            using (var writer = File.AppendText(logFile))
-            {
-                writer.WriteLine(DateTime.Now + ": Skab låst med RFID: {0}", id);
-            }
+            Console.WriteLine("LogDoorLocked called {0}. Sender: {1}",e.id,sender);
+            //using (var writer = File.AppendText(logFile))
+            //{
+            //    writer.WriteLine(DateTime.Now + ": Skab låst med RFID: {0}", id);
+            //}
         }
 
-        public void LogDoorUnlocked(id)
-        {
+        //public void LogDoorUnlocked(id)
+        //{
 
-        }
+        //}
     }
 }

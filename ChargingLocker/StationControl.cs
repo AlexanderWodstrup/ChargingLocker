@@ -41,7 +41,7 @@ namespace ChargingLocker
                         _door.LockDoor();
                         _charger.StartCharge();
                         _oldId = id;
-                        _log.LogDoorLocked(id);
+                        //_log.LogDoorLocked(id);
                         
 
                         _display.DisplayChargeLockerOccupied();
@@ -65,10 +65,10 @@ namespace ChargingLocker
                     {
                         _charger.StopCharge();
                         _door.UnlockDoor();
-                        using (var writer = File.AppendText(logFile))
-                        {
-                            writer.WriteLine(DateTime.Now + ": Skab låst op med RFID: {0}", id);
-                        }
+                        //using (var writer = File.AppendText(logFile))
+                        //{
+                        //    writer.WriteLine(DateTime.Now + ": Skab låst op med RFID: {0}", id);
+                        //}
 
                         _display.DisplayRemovePhone();
                         _state = LadeskabState.Available;

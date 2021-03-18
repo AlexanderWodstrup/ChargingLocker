@@ -19,6 +19,7 @@ namespace RFIDSimulator
         {
             IdValue = id;
             RFIDValueEvent?.Invoke(this,new RFIDEventArgs() {id = this.IdValue});
+            
         }
     }
 }
