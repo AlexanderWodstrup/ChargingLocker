@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ChargingLocker
 {
-    class Display
+    public class Display
     {
         public void DisplayConnectPhone()
         {
