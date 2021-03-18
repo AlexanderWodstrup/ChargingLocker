@@ -20,11 +20,12 @@ namespace ChargingLocker
 
         public void DisplayFailedConnection()
         {
-            Console.WriteLine("The system could not connect to your device");
+            Console.WriteLine("The system could not connect to your device, please try again");
         }
 
         public void DisplayChargeLockerOccupied()
         {
+            
             Console.WriteLine("This locker is occupied by a user");
         }
 
