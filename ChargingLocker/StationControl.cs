@@ -23,7 +23,7 @@ namespace ChargingLocker
         // Her mangler flere member variable
         private LadeskabState _state;
         IRFIDReader rfidReader = new RFIDReaderSimulator();
-        private IUsbCharger _charger = new UsbChargerSimulator();
+        private ChargeControl _charger = new ChargeControl();
         LogWriter logWriter = new LogWriter();
         private Door _door;
         private Display _display = new Display();
@@ -62,33 +62,31 @@ namespace ChargingLocker
 #if DEBUG
                     Console.WriteLine("DEBUG:::_state = LadeskabState.Available");
 #endif
-                    if (_charger.Connected)
+                    if (_door._doorOpen == true)
                     {
-                        if (_door._doorOpen == true)
-                        {
-                            Console.WriteLine("Please close the door before scaning your RFID tag");
-                        }
-                        else
+                        Console.WriteLine("Please close the door before scaning your RFID tag");
+                    }
+                    else
+                    {
+                        if (_charger.isConnected())
                         {
                             _door.LockDoor();
                             _charger.StartCharge();
                             _oldId = id;
                             _log.LogDoorLocked(id);
 
-
                             _display.DisplayChargeLockerOccupied();
                             _state = LadeskabState.Locked;
 #if DEBUG
                             Console.WriteLine("DEBUG:::_state = " + _state);
 #endif
-
                         }
-
+                        else
+                        {
+                            _display.DisplayFailedConnection();
+                        }
                     }
-                    else
-                    {
-                        _display.DisplayFailedConnection();
-                    }
+                    
 
                     break;
 
@@ -98,10 +96,6 @@ namespace ChargingLocker
 
                 case LadeskabState.Locked:
                     // Check for correct ID
-                    if ()
-                    {
-                        
-                    }
 #if DEBUG
                     Console.WriteLine("DEBUG:::_state = LadeskabState.Locked");
 #endif
