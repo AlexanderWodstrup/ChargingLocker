@@ -8,7 +8,7 @@ namespace ChargingLocker.ClassLibrary
     }
     public interface IRFIDReader
     {
-        public event EventHandler<RFIDEventArgs> RFIDValueEvent;
+        event EventHandler<RFIDEventArgs> RFIDValueEvent;
         int IdValue { get; }
         public void ReadRFID(int id);
     }

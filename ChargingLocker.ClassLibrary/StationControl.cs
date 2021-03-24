@@ -20,8 +20,7 @@ namespace ChargingLocker.ClassLibrary
         private Display _display = new Display();
         private LogWriter _log = new LogWriter();
         private int _oldId;
-        public event EventHandler<RFIDEventArgs> RFIDValueEvent;
-        private int id;
+        private int _id;
         public  StationControl(Door door)
         {
             _door = door;
@@ -50,7 +49,7 @@ namespace ChargingLocker.ClassLibrary
 
         private void RfidDetected(object sender, RFIDEventArgs e)
         {
-            id = e.id;
+            _id = e.id;
             switch (_state)
             {
                 case LadeskabState.Available:
@@ -69,8 +68,8 @@ namespace ChargingLocker.ClassLibrary
                         {
                             _door.LockDoor();
                             _charger.StartCharge();
-                            _oldId = id;
-                            _log.LogDoorLocked(id);
+                            _oldId = _id;
+                            _log.LogDoorLocked(_id);
 
                             _display.DisplayChargeLockerOccupied();
                             _state = LadeskabState.Locked;
@@ -96,18 +95,18 @@ namespace ChargingLocker.ClassLibrary
 #if DEBUG
                     Console.WriteLine("DEBUG:::_state = LadeskabState.Locked");
 #endif
-                    if (id == _oldId)
+                    if (_id == _oldId)
                     {
                         _charger.StopCharge();
                         _door.UnlockDoor();
-                        _log.LogDoorUnlocked(id);
+                        _log.LogDoorUnlocked(_id);
                         _display.DisplayRemovePhone();
                         _state = LadeskabState.Available;
                     }
                     else
                     {
                         _display.DisplayWrongRFID();
-                        _log.LogDoorTriedUnlockedWithWrongId(id);
+                        _log.LogDoorTriedUnlockedWithWrongId(_id);
                     }
 
                     break;
