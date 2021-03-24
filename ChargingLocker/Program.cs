@@ -18,6 +18,7 @@ namespace ChargingLocker
             LogWriter logWriter = new LogWriter();
 
             //Hej palle
+            //Prøver igen
 
             int runs = 0;
             bool finish = false;
