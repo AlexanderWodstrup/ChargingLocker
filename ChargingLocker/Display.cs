@@ -25,7 +25,6 @@ namespace ChargingLocker
 
         public void DisplayChargeLockerOccupied()
         {
-            
             Console.WriteLine("This locker is occupied by a user");
         }
 
