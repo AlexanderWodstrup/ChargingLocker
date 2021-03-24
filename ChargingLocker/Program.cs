@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using ChargingLocker;
+using ChargingLocker.ClassLibrary;
 using Microsoft.VisualStudio.TestPlatform.Common;
-using RFIDSimulator;
 
 namespace ChargingLocker
 {

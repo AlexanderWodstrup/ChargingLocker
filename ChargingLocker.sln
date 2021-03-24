@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31025.194
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChargingLocker", "ChargingLocker\ChargingLocker.csproj", "{57EC6A46-18AB-404B-826D-26F1634A60B6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChargingLocker", "ChargingLocker\ChargingLocker.csproj", "{57EC6A46-18AB-404B-826D-26F1634A60B6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChargingLocker.ClassLibrary", "ChargingLocker.ClassLibrary\ChargingLocker.ClassLibrary.csproj", "{74CBB0F2-B01D-4FFD-974D-1482E9B821CD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChargingLocker.Test.Unit", "ChargingLocker.Test.Unit\ChargingLocker.Test.Unit.csproj", "{816B4512-39E0-4003-920C-288B0DA19733}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{57EC6A46-18AB-404B-826D-26F1634A60B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{57EC6A46-18AB-404B-826D-26F1634A60B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{57EC6A46-18AB-404B-826D-26F1634A60B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74CBB0F2-B01D-4FFD-974D-1482E9B821CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74CBB0F2-B01D-4FFD-974D-1482E9B821CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74CBB0F2-B01D-4FFD-974D-1482E9B821CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74CBB0F2-B01D-4FFD-974D-1482E9B821CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{816B4512-39E0-4003-920C-288B0DA19733}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{816B4512-39E0-4003-920C-288B0DA19733}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{816B4512-39E0-4003-920C-288B0DA19733}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{816B4512-39E0-4003-920C-288B0DA19733}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
