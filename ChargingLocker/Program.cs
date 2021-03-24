@@ -49,7 +49,7 @@ namespace ChargingLocker
                         
                         break;
 
-                    case "Close" or "close":0
+                    case "Close" or "close":
                         door.DoorClosed();
                         
                         break;
