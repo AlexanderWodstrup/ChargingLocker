@@ -12,8 +12,8 @@ namespace ChargingLocker
         static void Main(string[] args)
         {
             // Assemble your system here from all the classes
-            StationControl stationControl = new StationControl();
             Door door = new Door();
+            StationControl stationControl = new StationControl(door);
             IRFIDReader rfidReader = new RFIDReaderSimulator();
             LogWriter logWriter = new LogWriter();
 
@@ -44,26 +44,26 @@ namespace ChargingLocker
                 if(string.IsNullOrEmpty(input)) continue;
                 switch (input)
                 {
-                    case "Exit":
+                    case "Exit" or "exit":
                         finish = true;
                         break;
 
-                    case "Open":
+                    case "Open" or "open":
                         door.DoorOpened();
                         break;
 
-                    case "Close":
+                    case "Close" or "close":
                         door.DoorClosed();
                         break;
 
-                    case "Scan":
+                    case "Scan" or "scan":
                         System.Console.WriteLine("Indtast RFID id: ");
                         string idString = System.Console.ReadLine();
 
                         int id = Convert.ToInt32(idString);
                         stationControl.runProgram(id);
                         break;
-                    case "List":
+                    case "List" or "list":
                         runs = 0;
                         break;
                     default:

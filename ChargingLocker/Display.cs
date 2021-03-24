@@ -25,7 +25,7 @@ namespace ChargingLocker
 
         public void DisplayChargeLockerOccupied()
         {
-            Console.WriteLine("This locker is occupied by a user");
+            Console.WriteLine("This locker is now occupied by you");
         }
 
         public void DisplayWrongRFID()

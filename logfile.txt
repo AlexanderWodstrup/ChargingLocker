@@ -88,3 +88,63 @@ Log Entry : 14:12:44 24. marts 2021
   :
  :Door Locked with RFID: 15
 -------------------------------
+
+Log Entry : 14:26:03 24. marts 2021
+  :
+ :Door Locked with RFID: 15
+-------------------------------
+
+Log Entry : 14:29:16 24. marts 2021
+  :
+ :Door Locked with RFID: 15
+-------------------------------
+
+Log Entry : 14:30:35 24. marts 2021
+  :
+ :Door Locked with RFID: 15
+-------------------------------
+
+Log Entry : 14:30:49 24. marts 2021
+  :
+ :Door Locked with RFID: 15
+-------------------------------
+
+Log Entry : 14:31:38 24. marts 2021
+  :
+ :Door Locked with RFID: 10
+-------------------------------
+
+Log Entry : 14:36:39 24. marts 2021
+  :
+ :Door Locked with RFID: 15
+-------------------------------
+
+Log Entry : 14:37:22 24. marts 2021
+  :
+ :Door Locked with RFID: 2
+-------------------------------
+
+Log Entry : 14:39:40 24. marts 2021
+  :
+ :Door Locked with RFID: 10
+-------------------------------
+
+Log Entry : 14:39:57 24. marts 2021
+  :
+ :Door Locked with RFID: 10
+-------------------------------
+
+Log Entry : 14:40:39 24. marts 2021
+  :
+ :Door Locked with RFID: 10
+-------------------------------
+
+Log Entry : 14:42:54 24. marts 2021
+  :
+ :Door Locked with RFID: 15
+-------------------------------
+
+Log Entry : 14:43:34 24. marts 2021
+  :
+ :Door Locked with RFID: 20
+-------------------------------

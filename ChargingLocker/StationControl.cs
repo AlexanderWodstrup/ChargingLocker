@@ -25,22 +25,24 @@ namespace ChargingLocker
         IRFIDReader rfidReader = new RFIDReaderSimulator();
         private IUsbCharger _charger = new UsbChargerSimulator();
         LogWriter logWriter = new LogWriter();
-        private Door _door = new Door();
+        private Door _door;
         private Display _display = new Display();
         private LogWriter _log = new LogWriter();
         private int _oldId;
         public event EventHandler<RFIDEventArgs> RFIDValueEvent;
 
-        public  StationControl()
+        public  StationControl(Door door)
         {
+            _door = door;
             rfidReader.RFIDValueEvent += sendID;
+            _state = LadeskabState.Available;
         }
 
         public void runProgram(int id)
         {
-            _state = LadeskabState.Available;
             rfidReader.ReadRFID(id);
         }
+        
         // Her mangler constructor
         public void sendID(object sender, RFIDEventArgs e)
         {
@@ -57,16 +59,31 @@ namespace ChargingLocker
             {
                 case LadeskabState.Available:
                     // Check for ladeforbindelse
+#if DEBUG
+                    Console.WriteLine("DEBUG:::_state = LadeskabState.Available");
+#endif
                     if (_charger.Connected)
                     {
-                        _door.LockDoor();
-                        _charger.StartCharge();
-                        _oldId = id;
-                        _log.LogDoorLocked(id);
-                        
+                        if (_door._doorOpen == true)
+                        {
+                            Console.WriteLine("Please close the door before scaning your RFID tag");
+                        }
+                        else
+                        {
+                            _door.LockDoor();
+                            _charger.StartCharge();
+                            _oldId = id;
+                            _log.LogDoorLocked(id);
 
-                        _display.DisplayChargeLockerOccupied();
-                        _state = LadeskabState.Locked;
+
+                            _display.DisplayChargeLockerOccupied();
+                            _state = LadeskabState.Locked;
+#if DEBUG
+                            Console.WriteLine("DEBUG:::_state = " + _state);
+#endif
+
+                        }
+
                     }
                     else
                     {
@@ -81,6 +98,13 @@ namespace ChargingLocker
 
                 case LadeskabState.Locked:
                     // Check for correct ID
+                    if ()
+                    {
+                        
+                    }
+#if DEBUG
+                    Console.WriteLine("DEBUG:::_state = LadeskabState.Locked");
+#endif
                     _display.DisplayScanRFID();
                     if (id == _oldId)
                     {
