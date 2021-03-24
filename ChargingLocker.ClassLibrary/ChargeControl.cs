@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ChargingLocker;
-using UsbSimulator;
-
-namespace ChargingLocker
+﻿namespace ChargingLocker.ClassLibrary
 {
     public class ChargeControl
     {
