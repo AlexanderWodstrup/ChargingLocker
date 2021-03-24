@@ -12,8 +12,9 @@ namespace ChargingLocker
 {
     public class LogWriter
     {
-        private string logFile = @"C:\Users\Rizl\Documents\Skole\4. Semester\SWT\ChargingLocker\ChargingLocker\logfile.txt"; // Navnet på systemets log-fil
-        
+        //private string logFile = @"C:\Users\Rizl\Documents\Skole\4. Semester\SWT\ChargingLocker\ChargingLocker\logfile.txt"; // Navnet på systemets log-fil
+        private string logFile = @"C:\Users\patri\OneDrive - Aarhus universitet\4. semester\I4SWT\Charging locker\logfile.txt"; // Navnet på systemets log-fil
+
         public void LogDoorLocked(int id)
         {
 #if DEBUG
