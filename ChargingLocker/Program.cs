@@ -15,9 +15,6 @@ namespace ChargingLocker
             Door door = new Door();
             StationControl stationControl = new StationControl(door);
 
-            //Hej palle
-            //Prøver igen
-
             int runs = 0;
             bool finish = false;
             do
