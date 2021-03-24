@@ -14,7 +14,6 @@ namespace ChargingLocker
             // Assemble your system here from all the classes
             Door door = new Door();
             StationControl stationControl = new StationControl(door);
-            //Jenkins Test 2
 
             int runs = 0;
             bool finish = false;
