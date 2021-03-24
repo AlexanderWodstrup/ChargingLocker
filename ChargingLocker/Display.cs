@@ -37,5 +37,11 @@ namespace ChargingLocker
         {
             Console.WriteLine("Please remove your device");
         }
+
+        public void DisplayDoorOpen()
+        {
+            Console.WriteLine("Please close the door before scaning your RFID tag");
+        }
+
     }
 }

@@ -6,25 +6,49 @@ using System.Threading.Tasks;
 
 namespace ChargingLocker
 {
+    public class DoorEventArgs : EventArgs
+    {
+        public bool _doorOpen { get; set; }
+    }
     public class Door
     {
         private bool _lock {get; set; }
-        public bool _doorOpen { get; set; }
+        public bool CurrentDoorStatus { get; private set; }
+        public event EventHandler<DoorEventArgs> DoorValueEvent;
+        
         public void DoorOpened()
         {
-            _doorOpen = true;
-#if DEBUG
-            Console.WriteLine("DEBUG:::Door opened");
-#endif
+            
+            if (_lock == true)
+            {
+                Console.WriteLine("The door is locked, please scan your RFID tag");
+            }
+            else
+            {
+                CurrentDoorStatus = true;
 
+#if DEBUG
+                Console.WriteLine("DEBUG:::Door opened");
+#endif
+                DoorValueEvent?.Invoke(this, new DoorEventArgs() { _doorOpen = true });
+            }
+            
         }
         
         public void DoorClosed()
         {
-            _doorOpen = false;
+            if (_lock == true)
+            {
+                Console.WriteLine("The door is closed and locked, please scan your RFID tag");
+            }
+            else
+            {
+                CurrentDoorStatus = false;
 #if DEBUG
-            Console.WriteLine("DEBUG:::Door closed");
+                Console.WriteLine("DEBUG:::Door closed");
 #endif
+                DoorValueEvent?.Invoke(this, new DoorEventArgs() {_doorOpen = false});
+            }
         }
 
         public void LockDoor()

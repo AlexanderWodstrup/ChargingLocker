@@ -16,7 +16,9 @@ namespace ChargingLocker
         
         public void LogDoorLocked(int id)
         {
-            Console.WriteLine("LogDoorLocked called {0}.",id);
+#if DEBUG
+            Console.WriteLine("DEBUG:::LogDoorLocked called {0}.", id);
+#endif
             string msg = "Door Locked with RFID: " + id.ToString();
             using (StreamWriter w = File.AppendText(logFile))
             {
@@ -24,24 +26,40 @@ namespace ChargingLocker
             }
             
         }
-        
-        public static void Log(string logMessage, TextWriter w)
-        {
-            w.Write("\r\nLog Entry : ");
-            w.WriteLine($"{DateTime.Now.ToLongTimeString()} {DateTime.Now.ToLongDateString()}");
-            w.WriteLine("  :");
-            w.WriteLine($" :{logMessage}");
-            w.WriteLine("-------------------------------");
-        }
 
-        public static void DumpLog(StreamReader r)
+        public void LogDoorUnlocked(int id)
         {
-            string line;
-            while ((line = r.ReadLine()) != null)
+#if DEBUG
+            Console.WriteLine("DEBUG:::LogDoorUnlocked called {0}.", id);
+#endif
+            string msg = "Door Unlocked with RFID: " + id.ToString();
+            using (StreamWriter w = File.AppendText(logFile))
             {
-                Console.WriteLine(line);
+                Log(msg, w);
             }
         }
+
+        public void LogDoorTriedUnlockedWithWrongId(int id)
+        {
+#if DEBUG
+            Console.WriteLine("DEBUG:::LogDoorTriedUnlockedWithWrongId called {0}.", id);
+#endif
+            string msg = "RFID: " + id.ToString() + " tried to unlock door";
+            using (StreamWriter w = File.AppendText(logFile))
+            {
+                Log(msg, w);
+            }
+        }
+
+
+        public static void Log(string logMessage, TextWriter w)
+        {
+            w.Write("------------------------------------");
+            w.Write("\r\nLog Entry : ");
+            w.WriteLine($"{DateTime.Now.ToLongTimeString()} {DateTime.Now.ToLongDateString()}");
+            w.WriteLine($"{logMessage}");
+            w.WriteLine("------------------------------------");
+            w.WriteLine();
+        }
     }
-    
 }

@@ -14,9 +14,6 @@ namespace ChargingLocker
     {
         public event EventHandler<RFIDEventArgs> RFIDValueEvent;
         int IdValue { get; }
-        public void ReadRFID(int id)
-        {
-
-        }
+        public void ReadRFID(int id);
     }
 }

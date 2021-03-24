@@ -10,8 +10,7 @@ namespace ChargingLocker
 {
     public class ChargeControl
     {
-        private bool _connected= false;
-        private IUsbCharger _charger;
+        private IUsbCharger _charger = new UsbChargerSimulator();
         public ChargeControl()
         {
 
@@ -19,7 +18,7 @@ namespace ChargingLocker
 
         public bool isConnected()
         {
-            return _connected;
+            return _charger.Connected;
         }
 
         public void StartCharge()

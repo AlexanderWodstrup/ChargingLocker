@@ -14,8 +14,9 @@ namespace ChargingLocker
             // Assemble your system here from all the classes
             Door door = new Door();
             StationControl stationControl = new StationControl(door);
-            IRFIDReader rfidReader = new RFIDReaderSimulator();
-            LogWriter logWriter = new LogWriter();           
+
+            //Hej palle
+            //Prøver igen
 
             int runs = 0;
             bool finish = false;
@@ -48,10 +49,12 @@ namespace ChargingLocker
 
                     case "Open" or "open":
                         door.DoorOpened();
+                        
                         break;
 
                     case "Close" or "close":
                         door.DoorClosed();
+                        
                         break;
 
                     case "Scan" or "scan":
