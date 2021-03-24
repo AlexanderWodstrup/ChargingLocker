@@ -5,13 +5,17 @@ namespace ChargingLocker.ClassLibrary
 {
     public class LogWriter
     {
-        //private string logFile = @"C:\Users\Rizl\Documents\Skole\4. Semester\SWT\ChargingLocker\ChargingLocker\logfile.txt"; // Navnet på systemets log-fil
-        private string logFile = "logfile.txt"; // Navnet på systemets log-fil
-
+        private string path = System.IO.Directory.GetCurrentDirectory();
+        static string projectDirectory = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.Parent.FullName;
+        
+        private string logFile = projectDirectory + @"\Logfile.txt"; // Navnet på systemets log-fil
+        
         public void LogDoorLocked(int id)
         {
 #if DEBUG
             Console.WriteLine("DEBUG:::LogDoorLocked called {0}.", id);
+            Console.WriteLine("DEBUG:::Path = {0}", path);
+            Console.WriteLine("DEBUG:::Path = {0}", projectDirectory);
 #endif
             string msg = "Door Locked with RFID: " + id.ToString();
             using (StreamWriter w = File.AppendText(logFile))
