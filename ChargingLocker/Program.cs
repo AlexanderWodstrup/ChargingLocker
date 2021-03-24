@@ -17,7 +17,7 @@ namespace ChargingLocker
             IRFIDReader rfidReader = new RFIDReaderSimulator();
             LogWriter logWriter = new LogWriter();
 
-
+            //Hej palle
 
             int runs = 0;
             bool finish = false;
