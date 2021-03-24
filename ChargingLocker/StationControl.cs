@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ChargingLocker;
+using RFIDSimulator;
 using UsbSimulator;
 
 namespace ChargingLocker
@@ -21,14 +22,34 @@ namespace ChargingLocker
 
         // Her mangler flere member variable
         private LadeskabState _state;
-        private IUsbCharger _charger;
-        private Door _door;
-        private Display _display;
-        private LogWriter _log;
+        IRFIDReader rfidReader = new RFIDReaderSimulator();
+        private IUsbCharger _charger = new UsbChargerSimulator();
+        LogWriter logWriter = new LogWriter();
+        private Door _door = new Door();
+        private Display _display = new Display();
+        private LogWriter _log = new LogWriter();
         private int _oldId;
+        public event EventHandler<RFIDEventArgs> RFIDValueEvent;
 
+        public  StationControl()
+        {
+            rfidReader.RFIDValueEvent += sendID;
+        }
+
+        public void runProgram(int id)
+        {
+            _state = LadeskabState.Available;
+            rfidReader.ReadRFID(id);
+        }
         // Her mangler constructor
-
+        public void sendID(object sender, RFIDEventArgs e)
+        {
+            //Console.WriteLine("SendID Called");
+            int id = e.id;
+            RfidDetected(id);
+            //logWriter.LogDoorLocked(id);
+            
+        }
         // Eksempel på event handler for eventet "RFID Detected" fra tilstandsdiagrammet for klassen
         private void RfidDetected(int id)
         {
@@ -41,7 +62,7 @@ namespace ChargingLocker
                         _door.LockDoor();
                         _charger.StartCharge();
                         _oldId = id;
-                        //_log.LogDoorLocked(id);
+                        _log.LogDoorLocked(id);
                         
 
                         _display.DisplayChargeLockerOccupied();
@@ -65,10 +86,6 @@ namespace ChargingLocker
                     {
                         _charger.StopCharge();
                         _door.UnlockDoor();
-                        //using (var writer = File.AppendText(logFile))
-                        //{
-                        //    writer.WriteLine(DateTime.Now + ": Skab låst op med RFID: {0}", id);
-                        //}
 
                         _display.DisplayRemovePhone();
                         _state = LadeskabState.Available;

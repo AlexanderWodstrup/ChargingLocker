@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using ChargingLocker;
+using Microsoft.VisualStudio.TestPlatform.Common;
 using RFIDSimulator;
 
 namespace ChargingLocker
@@ -15,44 +16,61 @@ namespace ChargingLocker
             Door door = new Door();
             IRFIDReader rfidReader = new RFIDReaderSimulator();
             LogWriter logWriter = new LogWriter();
-            
 
 
+
+            int runs = 0;
             bool finish = false;
             do
             {
                 string input;
-                System.Console.WriteLine("Indtast E, O, C, R: ");
-                input = Console.ReadLine();
-                if (string.IsNullOrEmpty(input)) continue;
-
-                switch (input[0])
+                
+                if (runs == 0)
                 {
-                    case 'E':
+                    System.Console.WriteLine("Welcome to ChargingLocker");
+                    System.Console.WriteLine("Type 'Open' to open locker door");
+                    System.Console.WriteLine("Type 'Close' to close locker door");
+                    System.Console.WriteLine("Type 'Scan' to scan your RFID tag");
+                    System.Console.WriteLine("Type 'Exit' to exit program");
+                }
+                else
+                {
+                    System.Console.WriteLine("Type 'List' to show all options");
+                }
+                runs = 1;
+                System.Console.Write("Input: ");
+                input = Console.ReadLine();
+
+                if(string.IsNullOrEmpty(input)) continue;
+                switch (input)
+                {
+                    case "Exit":
                         finish = true;
                         break;
 
-                    case 'O':
+                    case "Open":
                         door.DoorOpened();
                         break;
 
-                    case 'C':
+                    case "Close":
                         door.DoorClosed();
                         break;
 
-                    case 'R':
+                    case "Scan":
                         System.Console.WriteLine("Indtast RFID id: ");
                         string idString = System.Console.ReadLine();
 
                         int id = Convert.ToInt32(idString);
-                        rfidReader.RFIDValueEvent += logWriter.LogDoorLocked;
-                        rfidReader.ReadRFID(id);
+                        stationControl.runProgram(id);
                         break;
-
+                    case "List":
+                        runs = 0;
+                        break;
                     default:
                         break;
                 }
 
+                
             } while (!finish);
         }
     }

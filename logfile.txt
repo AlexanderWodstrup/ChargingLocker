@@ -1,15 +1,90 @@
 
-Log Entry : 09:22:20 24. marts 2021
+Log Entry : 10:05:21 24. marts 2021
+  :
+ :Door Locked with RFID: 10
+-------------------------------
+
+Log Entry : 10:05:25 24. marts 2021
+  :
+ :Door Locked with RFID: 230
+-------------------------------
+
+Log Entry : 10:05:25 24. marts 2021
+  :
+ :Door Locked with RFID: 230
+-------------------------------
+
+Log Entry : 10:05:27 24. marts 2021
+  :
+ :Door Locked with RFID: 10
+-------------------------------
+
+Log Entry : 10:05:27 24. marts 2021
+  :
+ :Door Locked with RFID: 10
+-------------------------------
+
+Log Entry : 10:05:27 24. marts 2021
+  :
+ :Door Locked with RFID: 10
+-------------------------------
+
+Log Entry : 10:09:37 24. marts 2021
+  :
+ :Door Locked with RFID: 10
+-------------------------------
+
+Log Entry : 10:09:40 24. marts 2021
+  :
+ :Door Locked with RFID: 25
+-------------------------------
+
+Log Entry : 10:09:40 24. marts 2021
+  :
+ :Door Locked with RFID: 25
+-------------------------------
+
+Log Entry : 10:10:05 24. marts 2021
+  :
+ :Door Locked with RFID: 10
+-------------------------------
+
+Log Entry : 10:10:09 24. marts 2021
+  :
+ :Door Locked with RFID: 25
+-------------------------------
+
+Log Entry : 10:10:12 24. marts 2021
+  :
+ :Door Locked with RFID: 36
+-------------------------------
+
+Log Entry : 10:18:30 24. marts 2021
+  :
+ :Door Locked with RFID: 41
+-------------------------------
+
+Log Entry : 10:22:36 24. marts 2021
+  :
+ :Door Locked with RFID: 10
+-------------------------------
+
+Log Entry : 10:22:36 24. marts 2021
+  :
+ :Door Locked with RFID: 10
+-------------------------------
+
+Log Entry : 10:23:50 24. marts 2021
+  :
+ :Door Locked with RFID: 10
+-------------------------------
+
+Log Entry : 14:04:14 24. marts 2021
+  :
+ :Door Locked with RFID: 10
+-------------------------------
+
+Log Entry : 14:12:44 24. marts 2021
   :
  :Door Locked with RFID: 15
--------------------------------
-
-Log Entry : 09:22:42 24. marts 2021
-  :
- :Door Locked with RFID: 20
--------------------------------
-
-Log Entry : 09:22:42 24. marts 2021
-  :
- :Door Locked with RFID: 20
 -------------------------------

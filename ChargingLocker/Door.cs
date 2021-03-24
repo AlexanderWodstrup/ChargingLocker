@@ -8,21 +8,16 @@ namespace ChargingLocker
 {
     public class Door
     {
-        private bool _doorOpen = false;
-        private bool _doorClose = true;
-        private bool _lock = false;
-
+        private bool _lock {get; set; }
+        private bool _doorOpen { get; set; }
         public void DoorOpened()
         {
-            _doorClose = false;
             _doorOpen = true;
-            Console.WriteLine("DoorOpened");
         }
-
+        
         public void DoorClosed()
         {
             _doorOpen = false;
-            _doorClose = true;
         }
 
         public void LockDoor()

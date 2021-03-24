@@ -14,10 +14,10 @@ namespace ChargingLocker
     {
         private string logFile = @"C:\Users\Rizl\Documents\Skole\4. Semester\SWT\ChargingLocker\ChargingLocker\logfile.txt"; // Navnet på systemets log-fil
         
-        public void LogDoorLocked(object sender, RFIDEventArgs e)
+        public void LogDoorLocked(int id)
         {
-            Console.WriteLine("LogDoorLocked called {0}. Sender: {1}",e.id,sender);
-            string msg = "Door Locked with RFID: " + e.id.ToString();
+            Console.WriteLine("LogDoorLocked called {0}.",id);
+            string msg = "Door Locked with RFID: " + id.ToString();
             using (StreamWriter w = File.AppendText(logFile))
             {
                 Log(msg, w);
