@@ -15,10 +15,7 @@ namespace ChargingLocker
             Door door = new Door();
             StationControl stationControl = new StationControl(door);
             IRFIDReader rfidReader = new RFIDReaderSimulator();
-            LogWriter logWriter = new LogWriter();
-
-            //Hej palle
-            //Prøver igen
+            LogWriter logWriter = new LogWriter();           
 
             int runs = 0;
             bool finish = false;
