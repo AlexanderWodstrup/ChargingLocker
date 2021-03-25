@@ -47,12 +47,12 @@ namespace ChargingLocker.Test.Unit
             _display.Received(1).DisplayConnectPhone();
         }
 
-        [Test]
-        public void Test_Of_ReadEventFunction()
-        {
-            _usbCharger.CurrentValueEvent += Raise.EventWith(new CurrentEventArgs { Current = 500});
+        //[Test]
+        //public void Test_Of_ReadEventFunction()
+        //{
+        //    _usbCharger.CurrentValueEvent += Raise.EventWith(new CurrentEventArgs { Current = 500});
             
-            _display.Received().DisplayPhoneCharging(500);
-        }
+        //    _display.Received().DisplayPhoneCharging(500);
+        //}
     }
 }

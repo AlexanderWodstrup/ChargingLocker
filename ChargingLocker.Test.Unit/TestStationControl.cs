@@ -13,24 +13,25 @@ namespace ChargingLocker.Test.Unit
     public class TestStationControl
     {
         private StationControl _uut;
-        private Door _door;
+        private IDoor _door;
         private IUsbCharger _usbCharger;
 
         [SetUp]
         public void Setup()
         {
-            _door = Substitute.For<Door>();
-
+            _door = Substitute.For<IDoor>();
+            _usbCharger = Substitute.For<IUsbCharger>();
             _uut = new StationControl(_door,_usbCharger);
         }
 
-        [Test]
-        public void OpenDoor()
-        {
-            _door.DoorOpened();
-            
-            Assert.That(_door.CurrentDoorStatus, Is.EqualTo(true));
-        }
+        //[Test]
+        //public void OpenDoor()
+        //{
+        //    _door.DoorOpened();
+
+        //    _door.CurrentDoorStatus.Returns(true);
+
+        //}
         [Test]
         public void OpenDoorEvent()
         {
