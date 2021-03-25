@@ -17,24 +17,26 @@ namespace ChargingLocker.Test.Unit
         private IDoor _door;
         private IUsbCharger _usbCharger;
         private IDisplay _display;
+        private IRFIDReader _rfidReader;
+        private RFIDEventArgs _rfidEventArgs;
 
         [SetUp]
         public void Setup()
         {
+            _rfidEventArgs = null;
             _door = Substitute.For<IDoor>();
             _usbCharger = Substitute.For<IUsbCharger>();
             _display = Substitute.For<IDisplay>();
-            _uut = new StationControl(_door,_usbCharger,_display);
+            _rfidReader = Substitute.For<RFIDReaderSimulator>(); //ASK why i cant use interface version
+            
+            _rfidReader.RFIDValueEvent += (o, args) =>
+            {
+                _rfidEventArgs = args;
+            };
+            _uut = new StationControl(_door, _usbCharger, _display, _rfidReader);
+            
         }
 
-        //[Test]
-        //public void OpenDoor()
-        //{
-        //    _door.DoorOpened();
-
-        //    _door.CurrentDoorStatus.Returns(true);
-
-        //}
         [Test]
         public void OpenEventTrue()
         {
@@ -51,6 +53,20 @@ namespace ChargingLocker.Test.Unit
             _display.Received().DisplayScanRFID();
 
         }
-    }
 
+        [TestCase(25)]
+        public void Test_Of_RunProgram_EventFired(int id)
+        {
+            _uut.runProgram(id);
+            //_rfidReader.Received().ReadRFID(id);
+            Assert.That(_rfidEventArgs, Is.Not.Null);
+        }
+
+        [TestCase(25)]
+        public void Test_Of_RunProgram_CorrectEventReceived(int id)
+        {
+            _uut.runProgram(id);
+            Assert.That(_rfidEventArgs.id,Is.EqualTo(id));
+        }
+    }
 }

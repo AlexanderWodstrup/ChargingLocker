@@ -12,10 +12,11 @@ namespace ChargingLocker
         static void Main(string[] args)
         {
             // Assemble your system here from all the classes
-            IDoor door = new Door();
+            IDoor _door = new Door();
             IUsbCharger _usbCharger = new UsbChargerSimulator();
             IDisplay _display = new Display();
-            IStationControl stationControl = new StationControl(door,_usbCharger,_display);
+            IRFIDReader _rfidReader = new RFIDReaderSimulator();
+            IStationControl stationControl = new StationControl(_door, _usbCharger, _display, _rfidReader);
 
             int runs = 0;
             bool finish = false;
@@ -47,12 +48,12 @@ namespace ChargingLocker
                         break;
 
                     case "Open" or "open":
-                        door.DoorOpened();
+                        _door.DoorOpened();
                         
                         break;
 
                     case "Close" or "close":
-                        door.DoorClosed();
+                        _door.DoorClosed();
                         
                         break;
 
