@@ -44,6 +44,18 @@ namespace ChargingLocker.Test.Unit
             };
             
         }
+        [Test]
+        public void CloseDoorEvent()
+        {
+            bool testValue;
+            _door.DoorClosed();
+            _door.DoorValueEvent += (o, args) =>
+            {
+                testValue = args._doorOpen;
+                Assert.That(_door.CurrentDoorStatus, Is.EqualTo(testValue));
+            };
+
+        }
     }
 
 }
