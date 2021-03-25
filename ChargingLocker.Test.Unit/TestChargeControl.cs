@@ -54,6 +54,7 @@ namespace ChargingLocker.Test.Unit
 
             _display.Received().DisplayFailedConnection();
         }
+
         [Test]
         public void ReadEventFunction_ErrorCurrent_Charger_StopCharge()
         {
@@ -61,15 +62,28 @@ namespace ChargingLocker.Test.Unit
 
             _usbCharger.Received().StopCharge();
         }
+
         [Test]
-        public void ReadEventFunction_Display_DisplayPhoneFullyCharged()
+        public void ReadEventFunction_ChargingCurrent_Display_DisplayPhoneCharging()
+        {
+            
+            double usedCurrent = 250;
+            _usbCharger.CurrentValueEvent += Raise.EventWith(new CurrentEventArgs { Current = 0 });
+            _usbCharger.CurrentValueEvent += Raise.EventWith(new CurrentEventArgs { Current = usedCurrent });
+            double p = usedCurrent / 500;
+            p = p * 100;
+            p = 100 - p;
+            _display.Received().DisplayPhoneCharging(p);
+        }
+
+        [Test]
+        public void ReadEventFunction_FullyChargedCurrent_Display_DisplayPhoneFullyCharged()
         {
             _usbCharger.CurrentValueEvent += Raise.EventWith(new CurrentEventArgs { Current = 0 });
             _usbCharger.CurrentValueEvent += Raise.EventWith(new CurrentEventArgs { Current = 4 });
 
             _display.Received().DisplayPhoneFullyCharged();
         }
-        [Test]
         public void ReadEventFunction_FullyChargedCurrent_Charger_StopCharge()
         {
             _usbCharger.CurrentValueEvent += Raise.EventWith(new CurrentEventArgs { Current = 0 });
