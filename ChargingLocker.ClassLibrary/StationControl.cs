@@ -2,7 +2,7 @@
 
 namespace ChargingLocker.ClassLibrary
 {
-    public class StationControl
+    public class StationControl : IStationControl
     {
         // Enum med tilstande ("states") svarende til tilstandsdiagrammet for klassen
         private enum LadeskabState
@@ -14,10 +14,10 @@ namespace ChargingLocker.ClassLibrary
 
         // Her mangler flere member variable
         private LadeskabState _state;
-        IRFIDReader rfidReader = new RFIDReaderSimulator();
-        private ChargeControl _charger = new ChargeControl();
-        private Door _door;
-        private Display _display = new Display();
+        private IRFIDReader rfidReader = new RFIDReaderSimulator();
+        private IChargeControl _charger = new ChargeControl();
+        private IDoor _door = new Door();
+        private IDisplay _display = new Display();
         private LogWriter _log = new LogWriter();
         private int _oldId;
         private int _id;
@@ -47,7 +47,7 @@ namespace ChargingLocker.ClassLibrary
             }
         }
 
-        private void RfidDetected(object sender, RFIDEventArgs e)
+        public void RfidDetected(object sender, RFIDEventArgs e)
         {
             _id = e.id;
             switch (_state)

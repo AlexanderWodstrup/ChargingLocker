@@ -2,11 +2,7 @@
 
 namespace ChargingLocker.ClassLibrary
 {
-    public class DoorEventArgs : EventArgs
-    {
-        public bool _doorOpen { get; set; }
-    }
-    public class Door
+    public class Door : IDoor
     {
         private bool _lock {get; set; }
         public bool CurrentDoorStatus { get; private set; }
