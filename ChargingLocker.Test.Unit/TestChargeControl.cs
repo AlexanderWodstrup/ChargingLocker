@@ -92,5 +92,18 @@ namespace ChargingLocker.Test.Unit
 
             _usbCharger.Received().StopCharge();
         }
+
+        [Test]
+        public void isConnected_Connected_False()
+        {
+            _usbCharger.Connected.Returns(false);
+            Assert.That(_uut.isConnected(),Is.EqualTo(false));
+        }
+        [Test]
+        public void isConnected_Connected_True()
+        {
+            _usbCharger.Connected.Returns(true);
+            Assert.That(_uut.isConnected(), Is.EqualTo(true));
+        }
     }
 }
