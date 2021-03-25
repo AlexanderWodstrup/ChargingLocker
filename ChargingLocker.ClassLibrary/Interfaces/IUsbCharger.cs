@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace UsbSimulator
+namespace ChargingLocker.ClassLibrary
 {
     public class CurrentEventArgs : EventArgs
     {

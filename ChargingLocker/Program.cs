@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using ChargingLocker;
+using ChargingLocker.ClassLibrary;
 using Microsoft.VisualStudio.TestPlatform.Common;
-using RFIDSimulator;
 
 namespace ChargingLocker
 {
@@ -14,10 +14,6 @@ namespace ChargingLocker
             // Assemble your system here from all the classes
             Door door = new Door();
             StationControl stationControl = new StationControl(door);
-            IRFIDReader rfidReader = new RFIDReaderSimulator();
-            LogWriter logWriter = new LogWriter();
-
-
 
             int runs = 0;
             bool finish = false;
@@ -50,10 +46,12 @@ namespace ChargingLocker
 
                     case "Open" or "open":
                         door.DoorOpened();
+                        
                         break;
 
                     case "Close" or "close":
                         door.DoorClosed();
+                        
                         break;
 
                     case "Scan" or "scan":

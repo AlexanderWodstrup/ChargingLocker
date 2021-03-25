@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace ChargingLocker
+namespace ChargingLocker.ClassLibrary
 {
-    public class Display
+    public class Display : IDisplay
     {
         public void DisplayConnectPhone()
         {
@@ -36,6 +32,21 @@ namespace ChargingLocker
         public void DisplayRemovePhone()
         {
             Console.WriteLine("Please remove your device");
+        }
+
+        public void DisplayDoorOpen()
+        {
+            Console.WriteLine("Please close the door before scaning your RFID tag");
+        }
+
+        public void DisplayPhoneCharging(double current)
+        {
+            Console.WriteLine("Your device is now charging: {0}%",current);
+        }
+
+        public void DisplayPhoneFullyCharged()
+        {
+            Console.WriteLine("Your device is now fully charged");
         }
     }
 }

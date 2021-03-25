@@ -1,16 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ChargingLocker;
-using RFIDSimulator;
-using UsbSimulator;
 
-namespace ChargingLocker
+namespace ChargingLocker.ClassLibrary
 {
-    public class StationControl
+    public class StationControl : IStationControl
     {
         // Enum med tilstande ("states") svarende til tilstandsdiagrammet for klassen
         private enum LadeskabState
@@ -22,19 +14,18 @@ namespace ChargingLocker
 
         // Her mangler flere member variable
         private LadeskabState _state;
-        IRFIDReader rfidReader = new RFIDReaderSimulator();
-        private ChargeControl _charger = new ChargeControl();
-        LogWriter logWriter = new LogWriter();
-        private Door _door;
-        private Display _display = new Display();
+        private IRFIDReader rfidReader = new RFIDReaderSimulator();
+        private IChargeControl _charger = new ChargeControl();
+        private IDoor _door = new Door();
+        private IDisplay _display = new Display();
         private LogWriter _log = new LogWriter();
         private int _oldId;
-        public event EventHandler<RFIDEventArgs> RFIDValueEvent;
-
+        private int _id;
         public  StationControl(Door door)
         {
             _door = door;
-            rfidReader.RFIDValueEvent += sendID;
+            rfidReader.RFIDValueEvent += RfidDetected;
+            door.DoorValueEvent += DisplayDoor;
             _state = LadeskabState.Available;
         }
 
@@ -42,38 +33,43 @@ namespace ChargingLocker
         {
             rfidReader.ReadRFID(id);
         }
-        
-        // Her mangler constructor
-        public void sendID(object sender, RFIDEventArgs e)
+
+        public void DisplayDoor(object sender, DoorEventArgs e)
         {
-            //Console.WriteLine("SendID Called");
-            int id = e.id;
-            RfidDetected(id);
-            //logWriter.LogDoorLocked(id);
-            
+            if (e._doorOpen == true)
+            {
+                _display.DisplayConnectPhone();
+            }
+
+            if (e._doorOpen == false)
+            {
+                _display.DisplayScanRFID();
+            }
         }
-        // Eksempel på event handler for eventet "RFID Detected" fra tilstandsdiagrammet for klassen
-        private void RfidDetected(int id)
+
+        public void RfidDetected(object sender, RFIDEventArgs e)
         {
+            _id = e.id;
             switch (_state)
             {
                 case LadeskabState.Available:
-                    // Check for ladeforbindelse
+                    
 #if DEBUG
                     Console.WriteLine("DEBUG:::_state = LadeskabState.Available");
 #endif
-                    if (_door._doorOpen == true)
+                    if (_door.CurrentDoorStatus == true)
                     {
-                        Console.WriteLine("Please close the door before scaning your RFID tag");
+                        _display.DisplayDoorOpen();
                     }
                     else
                     {
+                        // Check for ladeforbindelse
                         if (_charger.isConnected())
                         {
                             _door.LockDoor();
                             _charger.StartCharge();
-                            _oldId = id;
-                            _log.LogDoorLocked(id);
+                            _oldId = _id;
+                            _log.LogDoorLocked(_id);
 
                             _display.DisplayChargeLockerOccupied();
                             _state = LadeskabState.Locked;
@@ -99,24 +95,22 @@ namespace ChargingLocker
 #if DEBUG
                     Console.WriteLine("DEBUG:::_state = LadeskabState.Locked");
 #endif
-                    _display.DisplayScanRFID();
-                    if (id == _oldId)
+                    if (_id == _oldId)
                     {
                         _charger.StopCharge();
                         _door.UnlockDoor();
-
+                        _log.LogDoorUnlocked(_id);
                         _display.DisplayRemovePhone();
                         _state = LadeskabState.Available;
                     }
                     else
                     {
                         _display.DisplayWrongRFID();
+                        _log.LogDoorTriedUnlockedWithWrongId(_id);
                     }
 
                     break;
             }
         }
-
-        // Her mangler de andre trigger handlere
     }
 }
