@@ -37,12 +37,9 @@ namespace ChargingLocker.Test.Unit
         {
             bool testValue;
             _door.DoorOpened();
-            _door.DoorValueEvent += (o, args) =>
-            {
-                testValue = args._doorOpen;
-                Assert.That(_door.CurrentDoorStatus, Is.EqualTo(testValue));
-            };
-            
+            _door.DoorValueEvent += Raise.EventWith(new DoorEventArgs { _doorOpen = true });
+            Assert.That(_door.CurrentDoorStatus, Is.EqualTo(true));
+
         }
         [Test]
         public void CloseDoorEvent()
@@ -55,6 +52,14 @@ namespace ChargingLocker.Test.Unit
                 Assert.That(_door.CurrentDoorStatus, Is.EqualTo(testValue));
             };
 
+        }
+        [Test]
+        public void CloseDoorEventFailed()
+        {
+            bool testValue;
+            _door.DoorClosed();
+            _door.DoorValueEvent += Raise.EventWith(new DoorEventArgs {_doorOpen = false});
+            Assert.That(_door.CurrentDoorStatus, Is.EqualTo(false));
         }
     }
 
