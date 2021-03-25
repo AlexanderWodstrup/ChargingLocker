@@ -64,14 +64,16 @@ namespace ChargingLocker.Test.Unit
         [Test]
         public void ReadEventFunction_Display_DisplayPhoneFullyCharged()
         {
-            _usbCharger.CurrentValueEvent += Raise.EventWith(new CurrentEventArgs { Current = 501 });
+            _usbCharger.CurrentValueEvent += Raise.EventWith(new CurrentEventArgs { Current = 0 });
+            _usbCharger.CurrentValueEvent += Raise.EventWith(new CurrentEventArgs { Current = 4 });
 
             _display.Received().DisplayPhoneFullyCharged();
         }
         [Test]
         public void ReadEventFunction_FullyChargedCurrent_Charger_StopCharge()
         {
-            _usbCharger.CurrentValueEvent += Raise.EventWith(new CurrentEventArgs { Current = 501 });
+            _usbCharger.CurrentValueEvent += Raise.EventWith(new CurrentEventArgs { Current = 0 });
+            _usbCharger.CurrentValueEvent += Raise.EventWith(new CurrentEventArgs { Current = 4 });
 
             _usbCharger.Received().StopCharge();
         }
