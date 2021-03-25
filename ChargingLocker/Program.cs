@@ -12,8 +12,9 @@ namespace ChargingLocker
         static void Main(string[] args)
         {
             // Assemble your system here from all the classes
-            Door door = new Door();
-            StationControl stationControl = new StationControl(door);
+            IDoor door = new Door();
+            IUsbCharger _usbCharger = new UsbChargerSimulator();
+            IStationControl stationControl = new StationControl(door,_usbCharger);
 
             int runs = 0;
             bool finish = false;

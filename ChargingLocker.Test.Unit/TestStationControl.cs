@@ -14,12 +14,14 @@ namespace ChargingLocker.Test.Unit
     {
         private StationControl _uut;
         private Door _door;
+        private IUsbCharger _usbCharger;
 
         [SetUp]
         public void Setup()
         {
             _door = Substitute.For<Door>();
-            _uut = new StationControl(_door);
+
+            _uut = new StationControl(_door,_usbCharger);
         }
 
         [Test]
