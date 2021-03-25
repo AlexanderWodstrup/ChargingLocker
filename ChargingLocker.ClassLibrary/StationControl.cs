@@ -17,15 +17,15 @@ namespace ChargingLocker.ClassLibrary
         private IRFIDReader rfidReader = new RFIDReaderSimulator();
         private IChargeControl _charger;
         private IDoor _door = new Door();
-        private IDisplay _display = new Display();
+        private IDisplay _display;
         private LogWriter _log = new LogWriter();
         private int _oldId;
         private int _id;
-        public  StationControl(IDoor door, IUsbCharger _usbCharger)
+        public  StationControl(IDoor door, IUsbCharger _usbCharger, IDisplay display)
         {
-
             _charger = new ChargeControl(_display, _usbCharger);
             _door = door;
+            _display = display;
             rfidReader.RFIDValueEvent += RfidDetected;
             door.DoorValueEvent += DisplayDoor;
             _state = LadeskabState.Available;

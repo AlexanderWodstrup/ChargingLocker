@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using NUnit.Framework;
 using NSubstitute;
 using ChargingLocker.ClassLibrary;
+using NSubstitute.ReceivedExtensions;
 
 namespace ChargingLocker.Test.Unit
 {
@@ -15,13 +16,15 @@ namespace ChargingLocker.Test.Unit
         private StationControl _uut;
         private IDoor _door;
         private IUsbCharger _usbCharger;
+        private IDisplay _display;
 
         [SetUp]
         public void Setup()
         {
             _door = Substitute.For<IDoor>();
             _usbCharger = Substitute.For<IUsbCharger>();
-            _uut = new StationControl(_door,_usbCharger);
+            _display = Substitute.For<IDisplay>();
+            _uut = new StationControl(_door,_usbCharger,_display);
         }
 
         //[Test]
@@ -33,33 +36,20 @@ namespace ChargingLocker.Test.Unit
 
         //}
         [Test]
-        public void OpenDoorEvent()
+        public void OpenEventTrue()
         {
-            bool testValue;
-            _door.DoorOpened();
+            
             _door.DoorValueEvent += Raise.EventWith(new DoorEventArgs { _doorOpen = true });
-            Assert.That(_door.CurrentDoorStatus, Is.EqualTo(true));
+            _display.Received().DisplayConnectPhone();
 
         }
         [Test]
-        public void CloseDoorEvent()
+        public void DoorEventFalse()
         {
-            bool testValue;
-            _door.DoorClosed();
-            _door.DoorValueEvent += (o, args) =>
-            {
-                testValue = args._doorOpen;
-                Assert.That(_door.CurrentDoorStatus, Is.EqualTo(testValue));
-            };
+            
+            _door.DoorValueEvent += Raise.EventWith(new DoorEventArgs { _doorOpen = false });
+            _display.Received().DisplayScanRFID();
 
-        }
-        [Test]
-        public void CloseDoorEventFailed()
-        {
-            bool testValue;
-            _door.DoorClosed();
-            _door.DoorValueEvent += Raise.EventWith(new DoorEventArgs {_doorOpen = false});
-            Assert.That(_door.CurrentDoorStatus, Is.EqualTo(false));
         }
     }
 
