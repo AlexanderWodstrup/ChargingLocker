@@ -40,6 +40,6 @@ namespace ChargingLocker.Test.Unit
 
             Assert.That(_uut.logLine, Is.EqualTo(tmp));
         }
-
+        
     }
 }

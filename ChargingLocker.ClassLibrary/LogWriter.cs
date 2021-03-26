@@ -7,8 +7,10 @@ namespace ChargingLocker.ClassLibrary
     public class LogWriter : ILogWriter
     {
         private string path = System.IO.Directory.GetCurrentDirectory();
-        static string projectDirectory = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.Parent.FullName;
-        
+
+        static string projectDirectory =
+            Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.Parent.FullName;
+
         private string logFile = projectDirectory + @"\Logfile.txt"; // Navnet på systemets log-fil
         public string msg { get; private set; }
         public string logLine { get; private set; }
@@ -25,7 +27,7 @@ namespace ChargingLocker.ClassLibrary
             {
                 Log(msg, w);
             }
-            
+
         }
 
         public void LogDoorUnlocked(int id)
@@ -56,7 +58,7 @@ namespace ChargingLocker.ClassLibrary
         {
             using (StreamReader r = File.OpenText(logFile))
             {
-                logLine = DumpLog(r,msg);
+                logLine = DumpLog(r, msg);
             }
         }
 
