@@ -62,6 +62,9 @@ namespace ChargingLocker.Test.Unit
             _uut.DisplayDoorOpen();
             Assert.That(_uut.OutputString, Is.EqualTo("Please close the door before scaning your RFID tag"));
         }
+
+        [TestCase(0)]
+        [TestCase(1)]
         [TestCase(25)]
         public void Test_Of_DisplayPhoneCharging(double current)
         {
