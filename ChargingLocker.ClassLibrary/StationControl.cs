@@ -74,7 +74,7 @@ namespace ChargingLocker.ClassLibrary
                     }
                     else
                     {
-                        // Check for ladeforbindelse
+                        // Check for ladeforbindelse 
                         if (_charger.isConnected())
                         {
                             _door.LockDoor();
