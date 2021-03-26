@@ -76,5 +76,12 @@ namespace ChargingLocker.Test.Unit
             Assert.That(_uut.OutputString, Is.EqualTo("Your device is now fully charged"));
         }
 
+        [Test]
+        public void Test_Of_DisplayDoorIsLocked()
+        {
+            _uut.DisplayDoorIsLocked();
+            Assert.That(_uut.OutputString, Is.EqualTo("The door is locked, please scan your RFID tag"));
+        }
+
     }
 }
