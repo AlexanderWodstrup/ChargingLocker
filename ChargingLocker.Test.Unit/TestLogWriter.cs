@@ -28,6 +28,7 @@ namespace ChargingLocker.Test.Unit
         public void Test_Of_LogDoorLocked(int id)
         {
             _uut.LogDoorLocked(id);
+            
             string tmp = "Door Locked with RFID: " + id.ToString();
             Assert.That(_uut.msg,Is.EqualTo(tmp));
         }
@@ -39,10 +40,10 @@ namespace ChargingLocker.Test.Unit
         {
             _uut.ClearLog();
             _uut.LogDoorLocked(id);
-            string tmp = "Door Locked with RFID: " + id.ToString();
+            
             _uut.ReadFromLog();
 
-            Assert.That(_uut.logLine, Is.EqualTo(tmp));
+            Assert.That(_uut.logLine, Is.EqualTo(_uut.msg));
         }
 
         [TestCase(0)]
