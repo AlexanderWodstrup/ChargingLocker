@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,6 +7,8 @@ using System.Threading.Tasks;
 using ChargingLocker.ClassLibrary;
 using ChargingLocker.ClassLibrary.Interfaces;
 using NUnit.Framework;
+using NSubstitute;
+using NSubstitute.ReceivedExtensions;
 
 namespace ChargingLocker.Test.Unit
 {
@@ -37,6 +40,6 @@ namespace ChargingLocker.Test.Unit
 
             Assert.That(_uut.logLine, Is.EqualTo(tmp));
         }
-
+        
     }
 }
