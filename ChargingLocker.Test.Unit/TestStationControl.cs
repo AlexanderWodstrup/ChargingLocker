@@ -137,5 +137,36 @@ namespace ChargingLocker.Test.Unit
             _display.Received().DisplayFailedConnection();
         }
 
+        [TestCase(25)]
+        public void RfidDetected_UnlockLocker_With_Correct_ID(int TestId)
+        {
+            //This is to lock the door with testId so we can test rfidDetected when state is locked
+            _door.CurrentDoorStatus.Returns(false);
+            _chargeControl.isConnected().Returns(true);
+            _rfidReader.RFIDValueEvent += Raise.EventWith(new RFIDEventArgs { id = TestId });
+
+
+            _rfidReader.RFIDValueEvent += Raise.EventWith(new RFIDEventArgs { id = TestId });
+            _chargeControl.Received().StopCharge();
+            _door.Received().UnlockDoor();
+            _log.Received().LogDoorUnlocked(TestId);
+            _display.Received().DisplayRemovePhone();
+            Assert.That(_uut.GetState(),Is.EqualTo("Available"));
+        }
+
+        [TestCase(25)]
+        public void RfidDetected_UnlockLocker_With_Wrong_ID(int TestId)
+        {
+            //This is to lock the door with testId so we can test rfidDetected when state is locked
+            _door.CurrentDoorStatus.Returns(false);
+            _chargeControl.isConnected().Returns(true);
+            _rfidReader.RFIDValueEvent += Raise.EventWith(new RFIDEventArgs { id = TestId });
+
+
+            _rfidReader.RFIDValueEvent += Raise.EventWith(new RFIDEventArgs { id = TestId+1 });
+            _display.Received().DisplayWrongRFID();
+            _log.Received().LogDoorTriedUnlockedWithWrongId(TestId+1);
+        }
+
     }
 }
