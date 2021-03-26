@@ -22,6 +22,8 @@ namespace ChargingLocker.Test.Unit
             _uut = new LogWriter();
         }
 
+        [TestCase(0)]
+        [TestCase(1)]
         [TestCase(25)]
         public void Test_Of_LogDoorLocked(int id)
         {
@@ -30,6 +32,8 @@ namespace ChargingLocker.Test.Unit
             Assert.That(_uut.msg,Is.EqualTo(tmp));
         }
 
+        [TestCase(0)]
+        [TestCase(1)]
         [TestCase(25)]
         public void Test_Of_Log(int id)
         {
@@ -40,7 +44,9 @@ namespace ChargingLocker.Test.Unit
 
             Assert.That(_uut.logLine, Is.EqualTo(tmp));
         }
-        
+
+        [TestCase(0)]
+        [TestCase(1)]
         [TestCase(25)]
         public void Test_Of_LogDoorUnlocked(int id)
         {
@@ -49,6 +55,8 @@ namespace ChargingLocker.Test.Unit
             Assert.That(_uut.msg, Is.EqualTo(tmp));
         }
 
+        [TestCase(0)]
+        [TestCase(1)]
         [TestCase(25)]
         public void Test_Of_LogDoorTriedUnlockedWithWrongId(int id)
         {

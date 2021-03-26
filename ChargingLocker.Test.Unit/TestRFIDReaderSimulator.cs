@@ -14,7 +14,6 @@ namespace ChargingLocker.Test.Unit
     public class TestRFIDReaderSimulator
     {
         private RFIDReaderSimulator _uut;
-        private IStationControl _stationControl;
         private RFIDEventArgs _receivedEventArgs;
 
         [SetUp]
@@ -22,7 +21,7 @@ namespace ChargingLocker.Test.Unit
         {
             _receivedEventArgs = null;
             _uut = new RFIDReaderSimulator();
-            _stationControl = Substitute.For<IStationControl>();
+            
 
             _uut.RFIDValueEvent += (o, args) =>
             {

@@ -4,7 +4,7 @@ using ChargingLocker.ClassLibrary.Interfaces;
 
 namespace ChargingLocker.ClassLibrary
 {
-    public class StationControl : IStationControl
+    public class StationControl
     {
         // Enum med tilstande ("states") svarende til tilstandsdiagrammet for klassen
         private enum LadeskabState
@@ -18,12 +18,12 @@ namespace ChargingLocker.ClassLibrary
         private LadeskabState _state;
         private IRFIDReader _rfidReader;
         private IChargeControl _charger;
-        private IDoor _door = new Door();
+        private IDoor _door;
         private IDisplay _display;
         private ILogWriter _log;
         private int _oldId;
         private int _id;
-        public  StationControl(IDoor door, IUsbCharger _usbCharger, IDisplay display,IRFIDReader rfidReader, ILogWriter log, IChargeControl charge)
+        public  StationControl(IDoor door, IDisplay display,IRFIDReader rfidReader, ILogWriter log, IChargeControl charge)
         {
             _log = log;
             _door = door;

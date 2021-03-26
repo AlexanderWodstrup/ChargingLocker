@@ -11,5 +11,6 @@ namespace ChargingLocker.ClassLibrary
         bool isConnected();
         void StartCharge();
         void StopCharge();
+        void ReadEvent(object sender, CurrentEventArgs e);
     }
 }
