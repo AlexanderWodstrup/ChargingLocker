@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace ChargingLocker.ClassLibrary
 {
@@ -73,6 +74,7 @@ namespace ChargingLocker.ClassLibrary
                             _charger.StartCharge();
                             _oldId = _id;
                             _log.LogDoorLocked(_id);
+                           
 
                             _display.DisplayChargeLockerOccupied();
                             _state = LadeskabState.Locked;
