@@ -55,7 +55,7 @@ namespace ChargingLocker.Test.Unit
         }
 
         [Test]
-        public void ValueEvent()
+        public void DoorValueEvent()
         {
             bool testValue;
             _uut.DoorOpened();
