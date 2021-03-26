@@ -15,12 +15,19 @@ namespace ChargingLocker.Test.Unit
     {
         private RFIDReaderSimulator _uut;
         private IStationControl _stationControl;
+        private RFIDEventArgs _receivedEventArgs;
 
         [SetUp]
         public void Setup()
         {
+            _receivedEventArgs = null;
             _uut = new RFIDReaderSimulator();
             _stationControl = Substitute.For<IStationControl>();
+
+            _uut.RFIDValueEvent += (o, args) =>
+            {
+                _receivedEventArgs = args;
+            };
         }
         
         [TestCase(1)]
@@ -35,13 +42,19 @@ namespace ChargingLocker.Test.Unit
         [TestCase(1)]
         [TestCase(0)]
         [TestCase(15)]
-        public void Correct_ID_Is_Sent(int id)
+        public void RFIDValueEvent_ReadRFID_EventFired(int id)
         {
-            //int sentValue = 0;
-            //_uut.RFIDValueEvent += (o, args) => { sentValue = args.id; };
-            //_uut.ReadRFID(id);
-            //_stationControl.Received(1).RfidDetected();
-            //Assert.That(sentValue, Is.EqualTo(id));
+            _uut.ReadRFID(id);
+            Assert.That(_receivedEventArgs, Is.Not.Null);
+        }
+
+        [TestCase(1)]
+        [TestCase(0)]
+        [TestCase(15)]
+        public void RFIDValueEvent_ReadRFID_CorrectEventReceived(int id)
+        {
+            _uut.ReadRFID(id);
+            Assert.That(_receivedEventArgs.id, Is.EqualTo(id));
         }
 
     }

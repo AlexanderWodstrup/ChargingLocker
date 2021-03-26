@@ -10,60 +10,93 @@ using NSubstitute;
 namespace ChargingLocker.Test.Unit
 {
     [TestFixture]
-    public class TestDoor
+    class TestDoor
     {
         private IDoor _uut;
+        private DoorEventArgs _receivedEventArgs;
+        
         [SetUp]
         public void Setup()
         {
-            _uut = Substitute.For<IDoor>();
+            _receivedEventArgs = null;
+            _uut = new Door();
+            
+            _uut.DoorValueEvent += (o, args) =>
+            {
+                _receivedEventArgs = args;
+            };
         }
 
         [Test]
-        public void IsDoorOpened()
-        {
-            _uut.DoorOpened();
-            _uut.CurrentDoorStatus.Returns(true);
-        }
-        
-        [Test]
-        public void IsDoorClosed()
-        {
-            _uut.DoorClosed();
-            _uut.CurrentDoorStatus.Returns(false);
-        }
-
-        [Test]
-        public void IsDoorLocked()
+        public void Test_Of_LockDoor()
         {
             _uut.LockDoor();
-            _uut.CurrentDoorStatus.Returns(true);
+            Assert.That(_uut._lock,Is.EqualTo(true));
         }
 
         [Test]
-        public void IsDoorUnlocked()
+        public void Test_Of_UnlockDoor()
         {
             _uut.UnlockDoor();
-            _uut.CurrentDoorStatus.Returns(false);
+            Assert.That(_uut._lock, Is.EqualTo(false));
         }
 
         [Test]
-        public void DoorStatus()
+        public void Test_Of_DoorOpened_While_lock_True()
         {
-            _uut.CurrentDoorStatus.Returns(true);
+            _uut.LockDoor();
+            _uut.DoorOpened();
+            //Assert.That(Console.Out,Is.EqualTo("The door is locked, please scan your RFID tag"));
+        }
+
+        [Test]
+        public void CurrentDoorStatus_DoorOpened_While_lock_false()
+        {
+            _uut.DoorOpened();
             Assert.That(_uut.CurrentDoorStatus, Is.EqualTo(true));
         }
 
         [Test]
-        public void DoorValueEvent()
+        public void DoorValueEvent_DoorOpened_While_lock_false_EventFired()
+        {
+            _uut.DoorOpened();
+            Assert.That(_receivedEventArgs, Is.Not.Null);
+        }
+
+        [Test]
+        public void DoorValueEvent_DoorOpened_While_lock_false_CorrectEventReceived()
         {
             bool testValue;
             _uut.DoorOpened();
-            _uut.DoorValueEvent += (o, args) =>
-            {
-                testValue = args._doorOpen;
-                Assert.That(_uut.CurrentDoorStatus, Is.EqualTo(testValue));
-            };
+            Assert.That(_receivedEventArgs._doorOpen, Is.EqualTo(true));
+        }
+        [Test]
+        public void Test_Of_DoorClosed_While_lock_True()
+        {
+            _uut.LockDoor();
+            _uut.DoorClosed();
+            //Assert.That(Console.Out,Is.EqualTo("The door is closed and locked, please scan your RFID tag"));
+        }
+
+        [Test]
+        public void CurrentDoorStatus_DoorClosed_While_lock_false()
+        {
+            _uut.DoorClosed();
+            Assert.That(_uut.CurrentDoorStatus, Is.EqualTo(false));
+        }
+
+        [Test]
+        public void DoorValueEvent_DoorClosed_While_lock_false_EventFired()
+        {
+            _uut.DoorClosed();
+            Assert.That(_receivedEventArgs, Is.Not.Null);
+        }
+
+        [Test]
+        public void DoorValueEvent_DoorClosed_While_lock_false_CorrectEventReceived()
+        {
+            _uut.DoorClosed();
+            Assert.That(_receivedEventArgs._doorOpen, Is.EqualTo(false));
         }
     }
 }

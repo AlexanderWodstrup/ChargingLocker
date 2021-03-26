@@ -14,24 +14,27 @@ namespace ChargingLocker.ClassLibrary
 
         // Her mangler flere member variable
         private LadeskabState _state;
-        private IRFIDReader rfidReader = new RFIDReaderSimulator();
-        private IChargeControl _charger = new ChargeControl();
+        private IRFIDReader _rfidReader;
+        private IChargeControl _charger;
         private IDoor _door = new Door();
-        private IDisplay _display = new Display();
+        private IDisplay _display;
         private LogWriter _log = new LogWriter();
         private int _oldId;
         private int _id;
-        public  StationControl(Door door)
+        public  StationControl(IDoor door, IUsbCharger _usbCharger, IDisplay display,IRFIDReader rfidReader)
         {
             _door = door;
-            rfidReader.RFIDValueEvent += RfidDetected;
+            _display = display;
+            _rfidReader = rfidReader;
+            _rfidReader.RFIDValueEvent += RfidDetected;
             door.DoorValueEvent += DisplayDoor;
             _state = LadeskabState.Available;
+            _charger = new ChargeControl(_display, _usbCharger);
         }
 
         public void runProgram(int id)
         {
-            rfidReader.ReadRFID(id);
+            _rfidReader.ReadRFID(id);
         }
 
         public void DisplayDoor(object sender, DoorEventArgs e)
