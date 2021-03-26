@@ -60,19 +60,12 @@ namespace ChargingLocker.Test.Unit
         }
 
         [TestCase(25)]
-        public void Test_Of_RunProgram_EventFired(int id)
+        public void RunProgram_RFIDReader_ReceivedCorrectId(int id)
         {
             _uut.runProgram(id);
-            //_rfidReader.Received().ReadRFID(id);
-            //Assert.That(_rfidEventArgs, Is.Not.Null);
+            _rfidReader.Received().ReadRFID(id);
         }
 
-        [TestCase(25)]
-        public void Test_Of_RunProgram_CorrectEventReceived(int id)
-        {
-            _uut.runProgram(id);
-            //Assert.That(_rfidEventArgs.id,Is.EqualTo(id));
-        }
 
         [TestCase(25)]
         public void RfidDetected_DoorStatusTrue_Display_DisplayOpenDoor(int TestId)
@@ -138,7 +131,7 @@ namespace ChargingLocker.Test.Unit
         }
 
         [TestCase(25)]
-        public void RfidDetected_UnlockLocker_With_Correct_ID(int TestId)
+        public void RfidDetected_StateLocked_With_Correct_ID_ChargeControlReceived_StopCharge(int TestId)
         {
             //This is to lock the door with testId so we can test rfidDetected when state is locked
             _door.CurrentDoorStatus.Returns(false);
@@ -148,10 +141,50 @@ namespace ChargingLocker.Test.Unit
 
             _rfidReader.RFIDValueEvent += Raise.EventWith(new RFIDEventArgs { id = TestId });
             _chargeControl.Received().StopCharge();
+            //_door.Received().UnlockDoor();
+            //_log.Received().LogDoorUnlocked(TestId);
+            //_display.Received().DisplayRemovePhone();
+            //Assert.That(_uut.GetState(),Is.EqualTo("Available"));
+        }
+
+        [TestCase(25)]
+        public void RfidDetected_StateLocked_With_Correct_ID_DoorReceived_UnlockDoor(int TestId)
+        {
+            //This is to lock the door with testId so we can test rfidDetected when state is locked
+            _door.CurrentDoorStatus.Returns(false);
+            _chargeControl.isConnected().Returns(true);
+            _rfidReader.RFIDValueEvent += Raise.EventWith(new RFIDEventArgs { id = TestId });
+
+
+            _rfidReader.RFIDValueEvent += Raise.EventWith(new RFIDEventArgs { id = TestId });
             _door.Received().UnlockDoor();
+        }
+
+        [TestCase(25)]
+        public void RfidDetected_StateLocked_With_Correct_ID_LogReceived_LogDoorUnlocked(int TestId)
+        {
+            //This is to lock the door with testId so we can test rfidDetected when state is locked
+            _door.CurrentDoorStatus.Returns(false);
+            _chargeControl.isConnected().Returns(true);
+            _rfidReader.RFIDValueEvent += Raise.EventWith(new RFIDEventArgs { id = TestId });
+
+
+            _rfidReader.RFIDValueEvent += Raise.EventWith(new RFIDEventArgs { id = TestId });
             _log.Received().LogDoorUnlocked(TestId);
+        }
+
+        [TestCase(25)]
+        public void RfidDetected_StateLocked_With_Correct_ID_DisplayReceived_DisplayRemovePhone(int TestId)
+        {
+            //This is to lock the door with testId so we can test rfidDetected when state is locked
+            _door.CurrentDoorStatus.Returns(false);
+            _chargeControl.isConnected().Returns(true);
+            _rfidReader.RFIDValueEvent += Raise.EventWith(new RFIDEventArgs { id = TestId });
+
+
+            _rfidReader.RFIDValueEvent += Raise.EventWith(new RFIDEventArgs { id = TestId });
             _display.Received().DisplayRemovePhone();
-            Assert.That(_uut.GetState(),Is.EqualTo("Available"));
+            
         }
 
         [TestCase(25)]
@@ -166,6 +199,19 @@ namespace ChargingLocker.Test.Unit
             _rfidReader.RFIDValueEvent += Raise.EventWith(new RFIDEventArgs { id = TestId+1 });
             _display.Received().DisplayWrongRFID();
             _log.Received().LogDoorTriedUnlockedWithWrongId(TestId+1);
+        }
+
+        [TestCase(25)]
+        public void RfidDetected_StateLocked_With_Correct_ID_State_IsEqualTo_Available(int TestId)
+        {
+            //This is to lock the door with testId so we can test rfidDetected when state is locked
+            _door.CurrentDoorStatus.Returns(false);
+            _chargeControl.isConnected().Returns(true);
+            _rfidReader.RFIDValueEvent += Raise.EventWith(new RFIDEventArgs { id = TestId });
+
+
+            _rfidReader.RFIDValueEvent += Raise.EventWith(new RFIDEventArgs { id = TestId });
+            Assert.That(_uut.GetState(),Is.EqualTo("Available"));
         }
 
     }

@@ -33,5 +33,7 @@ namespace ChargingLocker.ClassLibrary
 
         public void DisplayPhoneFullyCharged();
 
+        public void DisplayDoorIsLocked();
+
     }
 }

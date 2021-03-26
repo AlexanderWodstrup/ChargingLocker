@@ -59,5 +59,11 @@ namespace ChargingLocker.ClassLibrary
             OutputString = "Your device is now fully charged";
             Console.WriteLine(OutputString);
         }
+
+        public void DisplayDoorIsLocked()
+        {
+            OutputString = "The door is locked, please scan your RFID tag";
+            Console.WriteLine(OutputString);
+        }
     }
 }

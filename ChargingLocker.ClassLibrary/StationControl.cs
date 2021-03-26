@@ -97,9 +97,9 @@ namespace ChargingLocker.ClassLibrary
 
                     break;
 
-                case LadeskabState.DoorOpen:
-                    // Ignore
-                    break;
+                //case LadeskabState.DoorOpen:
+                //    // Ignore
+                //    break;
 
                 case LadeskabState.Locked:
                     // Check for correct ID

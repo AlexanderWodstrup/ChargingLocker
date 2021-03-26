@@ -51,13 +51,25 @@ namespace ChargingLocker
                         break;
 
                     case "Open" or "open":
-                        _door.DoorOpened();
-                        
+                        if (_door._lock == true)
+                        {
+                            _display.DisplayDoorIsLocked();
+                        }
+                        else
+                        {
+                            _door.DoorOpened();
+                        }
                         break;
 
                     case "Close" or "close":
-                        _door.DoorClosed();
-                        
+                        if (_door._lock == true)
+                        {
+                            _display.DisplayDoorIsLocked();
+                        }
+                        else
+                        {
+                            _door.DoorClosed();
+                        }
                         break;
 
                     case "Scan" or "scan":
