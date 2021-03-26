@@ -1,5 +1,5 @@
 ﻿using System;
-using System.IO;
+using ChargingLocker.ClassLibrary.Interfaces;
 
 namespace ChargingLocker.ClassLibrary
 {
@@ -19,23 +19,30 @@ namespace ChargingLocker.ClassLibrary
         private IChargeControl _charger;
         private IDoor _door = new Door();
         private IDisplay _display;
-        private LogWriter _log = new LogWriter();
+        private ILogWriter _log;
         private int _oldId;
         private int _id;
-        public  StationControl(IDoor door, IUsbCharger _usbCharger, IDisplay display,IRFIDReader rfidReader)
+        public  StationControl(IDoor door, IUsbCharger _usbCharger, IDisplay display,IRFIDReader rfidReader, ILogWriter log, IChargeControl charge)
         {
+            _log = log;
             _door = door;
             _display = display;
             _rfidReader = rfidReader;
             _rfidReader.RFIDValueEvent += RfidDetected;
             door.DoorValueEvent += DisplayDoor;
             _state = LadeskabState.Available;
-            _charger = new ChargeControl(_display, _usbCharger);
+            _charger = charge;
         }
 
         public void runProgram(int id)
         {
             _rfidReader.ReadRFID(id);
+        }
+
+        public string GetState()
+        {
+            string tmp = _state.ToString();
+            return tmp;
         }
 
         public void DisplayDoor(object sender, DoorEventArgs e)
@@ -79,7 +86,7 @@ namespace ChargingLocker.ClassLibrary
                             _display.DisplayChargeLockerOccupied();
                             _state = LadeskabState.Locked;
 #if DEBUG
-                            Console.WriteLine("DEBUG:::_state = " + _state);
+                            Console.WriteLine("DEBUG:::_state after = " + _state);
 #endif
                         }
                         else
@@ -91,9 +98,9 @@ namespace ChargingLocker.ClassLibrary
 
                     break;
 
-                case LadeskabState.DoorOpen:
-                    // Ignore
-                    break;
+                //case LadeskabState.DoorOpen:
+                //    // Ignore
+                //    break;
 
                 case LadeskabState.Locked:
                     // Check for correct ID

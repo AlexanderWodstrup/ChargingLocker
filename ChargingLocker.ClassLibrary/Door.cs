@@ -11,37 +11,25 @@ namespace ChargingLocker.ClassLibrary
         public void DoorOpened()
         {
             
-            if (_lock == true)
-            {
-                //Burde det her være i display?
-                Console.WriteLine("The door is locked, please scan your RFID tag");
-            }
-            else
-            {
-                CurrentDoorStatus = true;
+            
+            CurrentDoorStatus = true;
 
 #if DEBUG
-                Console.WriteLine("DEBUG:::Door opened");
+            Console.WriteLine("DEBUG:::Door opened");
 #endif
-                DoorValueEvent?.Invoke(this, new DoorEventArgs() { _doorOpen = true });
-            }
-            
+            DoorValueEvent?.Invoke(this, new DoorEventArgs() { _doorOpen = true });
+
         }
         
         public void DoorClosed()
         {
-            if (_lock == true)
-            {
-                Console.WriteLine("The door is closed and locked, please scan your RFID tag");
-            }
-            else
-            {
-                CurrentDoorStatus = false;
+            
+            CurrentDoorStatus = false;
 #if DEBUG
-                Console.WriteLine("DEBUG:::Door closed");
+            Console.WriteLine("DEBUG:::Door closed");
 #endif
-                DoorValueEvent?.Invoke(this, new DoorEventArgs() {_doorOpen = false});
-            }
+            DoorValueEvent?.Invoke(this, new DoorEventArgs() {_doorOpen = false});
+            
         }
 
         public void LockDoor()

@@ -9,7 +9,7 @@ using NUnit.Framework;
 namespace ChargingLocker.Test.Unit
 {
     [TestFixture]
-    class TestDoor
+    public class TestDoor
     {
         private IDoor _uut;
         private DoorEventArgs _receivedEventArgs;
