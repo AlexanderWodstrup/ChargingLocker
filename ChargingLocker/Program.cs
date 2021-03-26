@@ -2,6 +2,7 @@
 using System.Runtime.CompilerServices;
 using ChargingLocker;
 using ChargingLocker.ClassLibrary;
+using ChargingLocker.ClassLibrary.Interfaces;
 using Microsoft.VisualStudio.TestPlatform.Common;
 
 namespace ChargingLocker
@@ -16,7 +17,9 @@ namespace ChargingLocker
             IUsbCharger _usbCharger = new UsbChargerSimulator();
             IDisplay _display = new Display();
             IRFIDReader _rfidReader = new RFIDReaderSimulator();
-            IStationControl stationControl = new StationControl(_door, _usbCharger, _display, _rfidReader);
+            ILogWriter _log = new LogWriter();
+            IChargeControl _charge = new ChargeControl(_display, _usbCharger);
+            IStationControl stationControl = new StationControl(_door, _usbCharger, _display, _rfidReader, _log, _charge);
 
             int runs = 0;
             bool finish = false;

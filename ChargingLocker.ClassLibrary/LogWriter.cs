@@ -1,9 +1,10 @@
 ﻿using System;
 using System.IO;
+using ChargingLocker.ClassLibrary.Interfaces;
 
 namespace ChargingLocker.ClassLibrary
 {
-    public class LogWriter
+    public class LogWriter : ILogWriter
     {
         private string path = System.IO.Directory.GetCurrentDirectory();
         static string projectDirectory = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.Parent.FullName;
