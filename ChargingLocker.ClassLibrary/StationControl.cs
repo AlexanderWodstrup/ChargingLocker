@@ -4,7 +4,7 @@ using ChargingLocker.ClassLibrary.Interfaces;
 
 namespace ChargingLocker.ClassLibrary
 {
-    public class StationControl : IStationControl
+    public class StationControl
     {
         // Enum med tilstande ("states") svarende til tilstandsdiagrammet for klassen
         private enum LadeskabState
