@@ -41,5 +41,20 @@ namespace ChargingLocker.Test.Unit
             Assert.That(_uut.logLine, Is.EqualTo(tmp));
         }
         
+        [TestCase(25)]
+        public void Test_Of_LogDoorUnlocked(int id)
+        {
+            _uut.LogDoorUnlocked(id);
+            string tmp = "Door Unlocked with RFID: " + id.ToString();
+            Assert.That(_uut.msg, Is.EqualTo(tmp));
+        }
+
+        [TestCase(25)]
+        public void Test_Of_LogDoorTriedUnlockedWithWrongId(int id)
+        {
+            _uut.LogDoorTriedUnlockedWithWrongId(id);
+            string tmp = "RFID: " + id.ToString() + " tried to unlock door";
+            Assert.That(_uut.msg, Is.EqualTo(tmp));
+        }
     }
 }
