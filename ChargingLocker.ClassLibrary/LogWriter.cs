@@ -7,8 +7,10 @@ namespace ChargingLocker.ClassLibrary
     public class LogWriter : ILogWriter
     {
         private string path = System.IO.Directory.GetCurrentDirectory();
-        static string projectDirectory = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.Parent.FullName;
-        
+
+        static string projectDirectory =
+            Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.Parent.FullName;
+
         private string logFile = projectDirectory + @"\Logfile.txt"; // Navnet på systemets log-fil
         public string msg { get; private set; }
         public string logLine { get; private set; }
@@ -25,7 +27,7 @@ namespace ChargingLocker.ClassLibrary
             {
                 Log(msg, w);
             }
-            
+
         }
 
         public void LogDoorUnlocked(int id)
@@ -56,7 +58,7 @@ namespace ChargingLocker.ClassLibrary
         {
             using (StreamReader r = File.OpenText(logFile))
             {
-                logLine = DumpLog(r,msg);
+                logLine = DumpLog(r, msg);
             }
         }
 
@@ -84,41 +86,6 @@ namespace ChargingLocker.ClassLibrary
             w.WriteLine($"{logMessage}");
             w.WriteLine("------------------------------------");
             w.WriteLine();
-        }
-
-        public void ReadFromLog()
-        {
-            using (StreamReader r = File.OpenText(logFile))
-            {
-                ReadFromLog(r);
-            }
-
-
-        }
-
-        public void ReadFromLog(StreamReader r)
-        {
-            string[] lines = System.IO.File.ReadAllLines(logFile);
-            //int lineCounter = 0;
-            //foreach (string line in lines)
-            //{
-            //    //string _readFromLog;
-            //    //if(lines[2] == "Door Locked with RFID: ")
-            //    string read = lines[2+lineCounter];
-            //    //Console.WriteLine("Check 1");
-            //    StringComparison comp = StringComparison.OrdinalIgnoreCase;
-            //    string OutputString = comp + ": " + line.Contains(read, comp);
-            //    Console.WriteLine(OutputString);
-            //    lineCounter += 5;
-            //}
-            string line;
-            int cnt = lines.Length - 3;
-
-            string OutputString;
-            while ((line = r.ReadLine()) != null)
-            {
-                OutputString = lines[cnt];
-            }
         }
     }
 }
