@@ -19,6 +19,7 @@ namespace ChargingLocker.Test.Unit
         private IDisplay _display;
         private IRFIDReader _rfidReader;
         private RFIDEventArgs _rfidEventArgs;
+        private IChargeControl _chargeControl;
 
         [SetUp]
         public void Setup()
@@ -27,6 +28,7 @@ namespace ChargingLocker.Test.Unit
             _door = Substitute.For<IDoor>();
             _usbCharger = Substitute.For<IUsbCharger>();
             _display = Substitute.For<IDisplay>();
+            _chargeControl = Substitute.For<IChargeControl>();
             _rfidReader = Substitute.For<RFIDReaderSimulator>(); //ASK why i cant use interface version
             
             _rfidReader.RFIDValueEvent += (o, args) =>
@@ -67,6 +69,26 @@ namespace ChargingLocker.Test.Unit
         {
             _uut.runProgram(id);
             Assert.That(_rfidEventArgs.id,Is.EqualTo(id));
+        }
+
+        [TestCase(25)]
+        public void Test_Of_RfidDetected_Display_DisplayOpenDoor(int TestId)
+        {
+            _door.CurrentDoorStatus.Returns(true);
+            _rfidReader.RFIDValueEvent += Raise.EventWith(new RFIDEventArgs {id=TestId});
+            _door.CurrentDoorStatus.Returns(true);
+            _display.Received().DisplayDoorOpen();
+        }
+
+        [TestCase(25)]
+        public void Test_Of_RfidDetected(int TestId)
+        {
+            _door.CurrentDoorStatus.Returns(true);
+            _chargeControl.isConnected().Returns(true);
+            //_rfidReader.RFIDValueEvent += Raise.EventWith(new RFIDEventArgs { id = TestId });
+            _door.CurrentDoorStatus.Returns(true);
+            _chargeControl.isConnected().Returns(true);
+            _display.Received().DisplayDoorOpen();
         }
     }
 }
