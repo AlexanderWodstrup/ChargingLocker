@@ -19,7 +19,7 @@ namespace ChargingLocker
             IRFIDReader _rfidReader = new RFIDReaderSimulator();
             ILogWriter _log = new LogWriter();
             IChargeControl _charge = new ChargeControl(_display, _usbCharger);
-            StationControl stationControl = new StationControl(_door, _usbCharger, _display, _rfidReader, _log, _charge);
+            StationControl stationControl = new StationControl(_door, _display, _rfidReader, _log, _charge);
 
             int runs = 0;
             bool finish = false;

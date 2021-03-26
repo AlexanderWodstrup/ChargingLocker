@@ -35,7 +35,7 @@ namespace ChargingLocker.Test.Unit
             _rfidReader = Substitute.For<IRFIDReader>(); //ASK why i cant use interface version
             
             
-            _uut = new StationControl(_door, _usbCharger, _display, _rfidReader, _log,_chargeControl);
+            _uut = new StationControl(_door, _display, _rfidReader, _log,_chargeControl);
             _rfidReader.RFIDValueEvent += (o, args) =>
             {
                 _rfidEventArgs = args;
