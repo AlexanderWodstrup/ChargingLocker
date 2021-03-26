@@ -13,7 +13,7 @@ namespace ChargingLocker.ClassLibrary
 
     public interface IDoor
     {
-
+        bool _lock { get; }
         bool CurrentDoorStatus { get; }
         event EventHandler<DoorEventArgs> DoorValueEvent;
 

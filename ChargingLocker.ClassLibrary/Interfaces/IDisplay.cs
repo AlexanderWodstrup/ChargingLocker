@@ -8,6 +8,7 @@ namespace ChargingLocker.ClassLibrary
 {
     public interface IDisplay
     {
+        public string OutputString { get; }
         public void DisplayConnectPhone();
 
 

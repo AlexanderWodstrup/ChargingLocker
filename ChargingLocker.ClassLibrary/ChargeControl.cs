@@ -4,11 +4,13 @@ namespace ChargingLocker.ClassLibrary
 {
     public class ChargeControl : IChargeControl
     {
-        private IUsbCharger _charger = new UsbChargerSimulator();
-        private IDisplay _display = new Display();
+        private IUsbCharger _charger;
+        private IDisplay _display;
         private int runs = 0;
-        public ChargeControl()
+        public ChargeControl(IDisplay display, IUsbCharger charger)
         {
+            _display = display;
+            _charger = charger;
             _charger.CurrentValueEvent += ReadEvent;
         }
 

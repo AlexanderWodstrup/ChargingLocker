@@ -4,7 +4,7 @@ namespace ChargingLocker.ClassLibrary
 {
     public class Door : IDoor
     {
-        private bool _lock {get; set; }
+        public bool _lock {get; private set; }
         public bool CurrentDoorStatus { get; private set; }
         public event EventHandler<DoorEventArgs> DoorValueEvent;
         
@@ -13,6 +13,7 @@ namespace ChargingLocker.ClassLibrary
             
             if (_lock == true)
             {
+                //Burde det her være i display?
                 Console.WriteLine("The door is locked, please scan your RFID tag");
             }
             else

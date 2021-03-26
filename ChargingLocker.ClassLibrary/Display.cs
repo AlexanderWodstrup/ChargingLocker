@@ -4,49 +4,60 @@ namespace ChargingLocker.ClassLibrary
 {
     public class Display : IDisplay
     {
+        public string OutputString { get; private set; }
         public void DisplayConnectPhone()
         {
-            Console.WriteLine("Please connect your phone");
+            OutputString = "Please connect your phone";
+            Console.WriteLine(OutputString);
+
         }
 
         public void DisplayScanRFID()
         {
-            Console.WriteLine("Please scan your tag");
+            OutputString = "Please scan your tag";
+            Console.WriteLine(OutputString);
         }
 
         public void DisplayFailedConnection()
         {
-            Console.WriteLine("The system could not connect to your device, please try again");
+            OutputString = "The system could not connect to your device, please try again";
+            Console.WriteLine(OutputString);
         }
 
         public void DisplayChargeLockerOccupied()
         {
-            Console.WriteLine("This locker is now occupied by you");
+            OutputString = "This locker is now occupied by you";
+            Console.WriteLine(OutputString);
         }
 
         public void DisplayWrongRFID()
         {
-            Console.WriteLine("Your tag could not be found, please try again");
+            OutputString = "Your tag could not be found, please try again";
+            Console.WriteLine(OutputString);
         }
 
         public void DisplayRemovePhone()
         {
-            Console.WriteLine("Please remove your device");
+            OutputString = "Please remove your device";
+            Console.WriteLine(OutputString);
         }
 
         public void DisplayDoorOpen()
         {
-            Console.WriteLine("Please close the door before scaning your RFID tag");
+            OutputString = "Please close the door before scaning your RFID tag";
+            Console.WriteLine(OutputString);
         }
 
         public void DisplayPhoneCharging(double current)
         {
-            Console.WriteLine("Your device is now charging: {0}%",current);
+            OutputString = "Your device is now charging: " + current + "%";
+            Console.WriteLine(OutputString);
         }
 
         public void DisplayPhoneFullyCharged()
         {
-            Console.WriteLine("Your device is now fully charged");
+            OutputString = "Your device is now fully charged";
+            Console.WriteLine(OutputString);
         }
     }
 }
